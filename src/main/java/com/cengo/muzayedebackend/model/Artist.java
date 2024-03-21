@@ -5,11 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
+import java.util.List;
 
 @Entity
-@Table(name = "artists")
-@EnableAutoConfiguration
+@Table(name = "artist")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -17,10 +17,19 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 public class Artist {
 
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
-    @Column(name = "artist_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "info")
     private String info;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "artist_id")
+    private List<AuctionProduct> auctionProducts;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "artist_id")
+    private List<Product> products;
+
 }

@@ -1,6 +1,6 @@
 package com.cengo.muzayedebackend.model;
 
-public enum State {
+public enum ProductState {
     ON_SALE,
     SOLD,
     NOT_FOR_SALE,

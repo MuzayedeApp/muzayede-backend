@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
+import java.time.Instant;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
-@Table(name = "bids")
-@EnableAutoConfiguration
+@Table(name = "bid")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -19,20 +20,22 @@ import java.util.Date;
 public class Bid {
 
     @Id
-    @Column(name = "bid_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
-
-    @Column(name = "auction_product_id")
-    private Long auctionProductId;
-
     @Column(name = "price")
-    private Double price;
+    private Integer price;
 
-    @Column(name = "date_time")
+    @Column(name = "bid_time")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateTime;
+    private Instant bidTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "auction_product_id")
+    private AuctionProduct product;
+
 }

@@ -6,7 +6,9 @@ import lombok.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -19,7 +21,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     private Long id;
 
     @Column(name = "name")
@@ -42,8 +43,16 @@ public class User {
 
     @Column(name = "birth_date")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date birthDate;
+    private LocalDate birthDate;
 
-    @Column(name = "approved", columnDefinition = "boolean default false")
-    private Boolean approved;
+    @Column(name = "approved")
+    private Boolean approved = false;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "buyer_id")
+    private List<Product> purchasedProducts;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "buyer_id")
+    private List<AuctionProduct> purchasedAuctionProducts;
 }
