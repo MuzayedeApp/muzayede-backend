@@ -1,6 +1,5 @@
 package com.cengo.muzayedebackend.model;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -14,7 +14,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @Testcontainers
 class MuzayedeBackendApplicationTests {
 	@Container
-	public static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:latest");
+	private static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:latest");
 
 	@DynamicPropertySource
 	static void configureProperties(DynamicPropertyRegistry registry) {
