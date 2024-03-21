@@ -8,8 +8,7 @@ import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 @Entity
-@Table(name = "products")
-@EnableAutoConfiguration
+@Table(name = "product")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -21,26 +20,28 @@ public class Product {
     @Column(name = "product_id")
     private Long id;
 
-    @Column(name = "artist_id")
-    private Long artistId;
-
-    @Column(name = "buyer_id")
-    private Long buyerId;
-
     @Column(name = "name")
     private String name;
 
-    @Column(name = "info")
-    private String info;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "price")
-    private Double price;
+    private Integer price;
 
     @Column(name = "state")
-    @Enumerated(EnumType.ORDINAL)
-    private State state;
+    @Enumerated(EnumType.STRING)
+    private ProductState state;
 
-    @Column(name = "category")
-    private String category; //?????
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private ProductCategory category;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "buyer_id")
+    private User buyer;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "artist_id")
+    private Artist artist;
 }

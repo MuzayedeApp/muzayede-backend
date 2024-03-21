@@ -5,14 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
 @Entity
-@Table(name = "auction_products")
-@EnableAutoConfiguration
+@Table(name = "auction_product")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -20,18 +17,8 @@ import java.util.List;
 public class AuctionProduct {
 
     @Id
-    @Column(name = "auction_product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "artist_id")
-    private Long artistId;
-
-    @Column(name = "auction_id")
-    private Long auctionId;
-
-    @Column(name = "buyer_id")
-    private Long buyerId;
 
     @Column(name = "name")
     private String name;
@@ -40,16 +27,28 @@ public class AuctionProduct {
     private String description;
 
     @Column(name = "image_url")
-    private String imageUrl; //ElementCollection yapılabilir
+    // TODO multiple file support
+    private String imageUrl;
 
     @Column(name = "initial_price")
-    private Double initialPrice;
+    private Integer initialPrice;
 
     @Column(name = "final_price")
-    private Double finalPrice;
+    private Integer finalPrice;
 
     @Column(name = "state")
-    @Enumerated(EnumType.ORDINAL)
-    private State state;
+    @Enumerated(EnumType.STRING)
+    private ProductState state;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "artist_id")
+    private Artist artist;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "auction_id")
+    private Auction auction;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "buyer_id")
+    private User buyer;
 }

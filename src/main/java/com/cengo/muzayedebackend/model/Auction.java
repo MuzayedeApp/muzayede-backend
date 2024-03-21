@@ -5,13 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.hibernate.annotations.GenericGenerator;
 
-import java.util.Date;
+import java.time.Instant;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
-@Table(name = "auctions")
-@EnableAutoConfiguration
+@Table(name = "auction")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -19,26 +20,29 @@ import java.util.Date;
 public class Auction {
 
     @Id
-    @Column(name = "auction_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "info")
-    private String info;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "start_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date startDate;
+    private Instant startDate;
 
     @Column(name = "end_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date endDate;
+    private Instant endDate;
 
     @Column(name = "state")
-    @Enumerated(EnumType.ORDINAL)
-    private State state;
+    @Enumerated(EnumType.STRING)
+    private AuctionState state;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "auction_id")
+    private List<AuctionProduct> products;
 
 }
