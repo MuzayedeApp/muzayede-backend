@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - muzayede
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    restart: on-failure
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_DB: muzayede
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      PGDATA: /data/postgres
+    networks:
+      - muzayede
+    expose:
+      - "5431"
+    ports:
+      - "5431:5431"
+    command: -p 5431
+    restart: always
+
+networks:
+  muzayede:
+    driver: bridge
