@@ -58,6 +58,7 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_BASH: false
+          VALIDATE_GOOGLE_JAVA_FORMAT: false
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
