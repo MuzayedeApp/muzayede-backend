@@ -5,7 +5,12 @@
 
 version: 2
 updates:
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/pom.xml" # Location of package manifests
+  - package-ecosystem: "maven"
+    directory: "/pom.xml"
     schedule:
       interval: "daily"
+      
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
