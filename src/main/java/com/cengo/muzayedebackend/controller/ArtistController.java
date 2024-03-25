@@ -14,18 +14,22 @@ import java.util.List;
 public class ArtistController {
     private final ArtistService artistService;
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public void addArtist(@RequestBody addArtistRequest artistInfo) {
         artistService.addArtist(artistInfo);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/")
     public void deleteArtist(@RequestBody Long id) {
         artistService.deleteArtist(id);
     }
 
-    @GetMapping("/get-artists")
+    @GetMapping("/")
     public List<Artist> getArtists() {
         return artistService.getArtists();
+    }
+    @GetMapping("/{id}")
+    public Artist getArtist(@PathVariable(name = "id") Long id) {
+        return artistService.getArtist(id);
     }
 }

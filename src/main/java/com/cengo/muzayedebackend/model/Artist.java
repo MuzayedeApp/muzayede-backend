@@ -21,6 +21,9 @@ public class Artist {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "full_name")
+    private String fullName;
+
     @Column(name = "info")
     private String info;
 

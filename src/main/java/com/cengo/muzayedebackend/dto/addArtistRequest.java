@@ -9,6 +9,8 @@ import lombok.*;
 @Setter
 @Builder
 public class addArtistRequest {
+    @NotBlank(message = "Full name is mandatory")
+    private String fullName;
     @NotBlank(message = "Info is mandatory")
     private String info;
 }
