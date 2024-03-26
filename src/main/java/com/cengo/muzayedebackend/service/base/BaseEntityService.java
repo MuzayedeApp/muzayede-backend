@@ -36,7 +36,7 @@ public abstract class BaseEntityService<E extends BaseEntity, R extends JpaRepos
 		return entity;
 	}
 
-	public E findByIdWithControl(Long id) {
+	public E getById(Long id) {
 		Optional<E> optionalE = repository.findById(id);
 		E entity;
 		if (optionalE.isPresent()) {

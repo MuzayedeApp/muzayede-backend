@@ -1,4 +1,4 @@
-package com.cengo.muzayedebackend.dao;
+package com.cengo.muzayedebackend.repository;
 
 import com.cengo.muzayedebackend.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
