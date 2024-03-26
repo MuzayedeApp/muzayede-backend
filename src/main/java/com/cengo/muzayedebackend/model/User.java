@@ -1,51 +1,64 @@
 package com.cengo.muzayedebackend.model;
 
 
+import com.cengo.muzayedebackend.model.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.*;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
-@Table(name = "users")
-@EnableAutoConfiguration
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class User {
+@Entity
+@Table(name = "users")
+public class User extends BaseEntity {
 
+    @SequenceGenerator(name = "User", sequenceName = "USER_ID_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "User")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @NotBlank
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "surname")
+    @NotBlank
+    @Column(name = "USERNAME", nullable = false)
     private String surname;
 
-    @Column(name = "email", unique = true)
+    @Email
+    @NotBlank
+    @Column(name = "EMAIL", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "password")
+    @NotBlank
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @Column(name = "phone", unique = true)
+    @NotBlank
+    @Column(name = "PHONE", unique = true, nullable = false)
     private String phone;
 
-    @Column(name = "address")
+    @NotBlank
+    @Column(name = "ADDRESS", nullable = false)
     private String address;
 
-    @Column(name = "birth_date")
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Past
+    @NotNull
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    @Column(name = "BIRTH_DATE")
     private LocalDate birthDate;
 
-    @Column(name = "approved")
-    private Boolean approved = false;
+    @Column(name = "APPROVED")
+    private Boolean approved;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "buyer_id")
