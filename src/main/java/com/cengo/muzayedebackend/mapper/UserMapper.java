@@ -13,6 +13,7 @@ import java.util.List;
 public interface UserMapper {
 	UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
+	//TODO approved will be false
 	User convertToUser(UserSaveRequest request);
 	UserDTO convertToUserDTO(User user);
 	List<UserDTO> convertToUserDTOs(List<User> users);

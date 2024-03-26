@@ -32,7 +32,7 @@ public class UserControllerContractImpl implements UserControllerContract {
 
 	@Override
 	public UserDTO getUserById(Long id) {
-		User user = userService.findByIdWithControl(id);
+		User user = userService.getById(id);
 
 		return UserMapper.INSTANCE.convertToUserDTO(user);
 	}
