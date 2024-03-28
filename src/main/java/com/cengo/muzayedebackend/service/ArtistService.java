@@ -7,5 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ArtistService extends BaseEntityService<Artist, ArtistRepository> {
-    protected ArtistService(ArtistRepository repository) { super(repository); }
+    protected ArtistService(ArtistRepository repository) {
+        super(repository);
+    }
 }
